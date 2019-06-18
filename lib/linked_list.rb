@@ -95,7 +95,7 @@ class LinkedList
   def pop
     array = self.to_string.split
     return_value = array.pop
-    reset_list(array)
+    reset_list(array) unless array == []
     return_value
   end
 
