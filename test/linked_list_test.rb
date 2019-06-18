@@ -60,4 +60,12 @@ class LinkedListTest < Minitest::Test
     assert_equal 4, @list.count
     assert_equal "doop deep wubba wabba", @list.to_string
   end
+
+  def test_prepend_method
+    assert_equal "plop", @list.append("plop")
+    assert_equal "plop", @list.to_string
+    assert_equal "suu", @list.append("suu")
+    assert_equal "dop", @list.prepend("dop")
+    assert_equal "dop plop suu", @list.to_string
+  end
 end

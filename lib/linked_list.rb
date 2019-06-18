@@ -26,14 +26,9 @@ class LinkedList
     counter(self.head, 0)
   end
 
-  def last_node(node)
-    return node if node.tail?
-    last_node(node.next_node)
-  end
-
   def collect_data(node, string = "")
     if empty?
-      return nil
+      return ""
     else
       string << " " + node.data
       if node.tail?
@@ -48,17 +43,40 @@ class LinkedList
     collect_data(self.head)
   end
 
+  def last_node(node)
+    return node if node.tail?
+    last_node(node.next_node)
+  end
+
   def append(data)
     node = Node.new(data)
     if empty?
-      if self.head = node
+      self.head = node
       @head.data
-       end
     else
-      if new_node = self.last_node(self.head)
-        new_node.next_node = node
+      new_node = self.last_node(self.head)
+      new_node.next_node = node
       new_node.next_node.data
-      end
+    end
+  end
+
+  def reset_list(string)
+    self.head = nil
+    string.split.each do |data|
+      append(data)
+    end
+  end
+
+  def prepend(data)
+    node = Node.new(data)
+    if empty?
+      self.head = node
+      @head.data
+    else
+      string = self.to_string
+      string.prepend(data + " ")
+      reset_list(string)
+      self.head.data
     end
   end
 end
