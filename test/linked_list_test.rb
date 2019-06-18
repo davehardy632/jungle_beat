@@ -14,20 +14,37 @@ class LinkedListTest < Minitest::Test
     assert_instance_of LinkedList, @list
   end
 
-  def test_list_attributes
+  def test_head_begins_as_nil
     assert_nil @list.head
-    assert_equal "doop", @list.append("doop")
-    assert_equal Node, @list.head.class
-    assert_equal 'doop', @list.head.data
+    @list.append("deep")
+    assert_equal false, @list.head.nil?
+  end
+
+  def test_head_is_set_as_a_node
+    @list.append("doop")
+    assert_instance_of Node, @list.head
+  end
+
+  def test_node_data_is_set_with_append_method
+    @list.append("doop")
+    assert_equal "doop", @list.head.data
+  end
+
+  def test_next_node_is_nil_when_appended_once
+    @list.append("doop")
     assert_nil @list.head.next_node
   end
 
-  def test_list_methods_count_append_empty_to_string
-    assert_equal 0, @list.count
-    assert_equal true, @list.empty?
+  def test_append_once
     assert_equal "doop", @list.append("doop")
-    assert_equal 1, @list.count
-    assert_equal "doop", @list.to_string
+    assert_instance_of Node, @list.head
+    assert_equal "doop", @list.head.data
+  end
+
+  def test_empty_method
+    assert_equal true, @list.empty?
+    @list.append("deep")
+    assert_equal false, @list.empty?
   end
 
   def test_counter_method
@@ -37,11 +54,27 @@ class LinkedListTest < Minitest::Test
     assert_equal 3, @list.counter(@list.head, 0)
   end
 
+  def test_count_method
+    assert_equal 0, @list.count
+    list = ["deep", "doop", "wubba", "wabba"]
+    @list.set_list(list)
+    assert_equal 4, @list.count
+  end
+
   def test_collect_data_method
+    assert_equal "", @list.collect_data(@list.head)
     @list.append("doop")
     @list.append("deep")
     @list.append("wubba")
     assert_equal "doop deep wubba", @list.to_string
+  end
+
+  def test_to_string_method
+    assert_equal "", @list.to_string
+    @list.append("deep")
+    @list.append("doop")
+    @list.append("boop")
+    assert_equal "deep doop boop", @list.to_string
   end
 
   def test_last_node_method
@@ -60,6 +93,7 @@ class LinkedListTest < Minitest::Test
     assert_equal 4, @list.count
     assert_equal "doop deep wubba wabba", @list.to_string
   end
+
   def test_set_list_method
     new_list_data_array = ["setting", "new", "list"]
     assert_nil @list.head
