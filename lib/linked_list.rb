@@ -22,8 +22,8 @@ class LinkedList
     end
   end
 
-  def count(node)
-    counter(node, 0)
+  def count
+    counter(self.head, 0)
   end
 
   def last_node(node)
@@ -31,8 +31,26 @@ class LinkedList
     last_node(node.next_node)
   end
 
-  def to_string(node)
-    if empty
+  def collect_data(node, array = [])
+    if empty?
+      return nil
+    else
+      array << node.data
+      if node.tail?
+        array
+      else
+        collect_data(node.next_node, array)
+      end
+    end
+  end
+
+  def to_string
+    string = ""
+    data = collect_data(self.head)
+    data.each do |word|
+     string << " " + word
+   end
+   string.lstrip!
   end
 
   def append(data)
