@@ -22,19 +22,12 @@ class LinkedListTest < Minitest::Test
     assert_nil @list.head.next_node
   end
 
-  def test_list_methods
+  def test_list_methods_count_append_empty_to_string
     assert_equal 0, @list.count
     assert_equal true, @list.empty?
     assert_equal "doop", @list.append("doop")
     assert_equal 1, @list.count
     assert_equal "doop", @list.to_string
-  end
-
-  def test_last_node_method
-    @list.append("doop")
-    @list.append("deep")
-    assert_equal Node, @list.last_node(@list.head).class
-    assert_equal "deep", @list.last_node(@list.head).data
   end
 
   def test_counter_method
@@ -51,6 +44,13 @@ class LinkedListTest < Minitest::Test
     assert_equal "doop deep wubba", @list.to_string
   end
 
+  def test_last_node_method
+    @list.append("doop")
+    @list.append("deep")
+    assert_equal Node, @list.last_node(@list.head).class
+    assert_equal "deep", @list.last_node(@list.head).data
+  end
+
   def test_append_multiple_nodes
     @list.append("doop")
     @list.append("deep")
@@ -59,6 +59,25 @@ class LinkedListTest < Minitest::Test
     assert_equal "deep", @list.head.next_node.data
     assert_equal 4, @list.count
     assert_equal "doop deep wubba wabba", @list.to_string
+  end
+  def test_set_list_method
+    new_list_data_array = ["setting", "new", "list"]
+    assert_nil @list.head
+    @list.set_list(new_list_data_array)
+    assert_equal "setting", @list.head.data
+    assert_equal "new", @list.head.next_node.data
+    assert_equal "list", @list.head.next_node.next_node.data
+  end
+
+  def test_reset_list_method
+    @list.append("deep")
+    @list.append("woo")
+    @list.append("shi")
+    new_data_array = ["reset", "the", "list"]
+    @list.reset_list(new_data_array)
+    assert_equal "reset", @list.head.data
+    assert_equal "the", @list.head.next_node.data
+    assert_equal "list", @list.head.next_node.next_node.data
   end
 
   def test_prepend_method
@@ -76,6 +95,17 @@ class LinkedListTest < Minitest::Test
     @list.prepend("dop")
     assert_equal "woo", @list.insert(1, "woo")
     assert_equal "dop woo plop suu", @list.to_string
+  end
+
+  def test_pop_method
+    @list.append("deep")
+    @list.append("woo")
+    @list.append("shi")
+    @list.append("shu")
+    @list.append("blop")
+    assert_equal "blop", @list.pop
+    assert_equal "shu", @list.pop
+    assert_equal "deep woo shi", @list.to_string
   end
 
   def test_find_method
@@ -100,16 +130,4 @@ class LinkedListTest < Minitest::Test
     assert_equal true, @list.includes?("deep")
     assert_equal false, @list.includes?("dep")
   end
-
-  def test_pop_method
-    @list.append("deep")
-    @list.append("woo")
-    @list.append("shi")
-    @list.append("shu")
-    @list.append("blop")
-    assert_equal "blop", @list.pop
-    assert_equal "shu", @list.pop
-    assert_equal "deep woo shi", @list.to_string
-  end
-
 end
