@@ -85,7 +85,19 @@ class LinkedListTest < Minitest::Test
     @list.append("shu")
     @list.append("blop")
     assert_equal "deep woo shi shu blop", @list.to_string
-    # assert_equal "shi", @list.find(2, 1)
+    assert_equal "shi", @list.find(2, 1)
     assert_equal "woo shi shu", @list.find(1, 3)
+    assert_equal "shu blop", @list.find(3, 2)
+    assert_equal "deep woo shi", @list.find(0, 3)
+  end
+
+  def test_includes_method
+    @list.append("deep")
+    @list.append("woo")
+    @list.append("shi")
+    @list.append("shu")
+    @list.append("blop")
+    assert_equal true, @list.includes?("deep")
+    assert_equal false, @list.includes?("dep")
   end
 end

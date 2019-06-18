@@ -93,11 +93,14 @@ class LinkedList
   end
 
   def find(position, number)
-    new_array = []
     array = self.to_string.split
-    number.times do
-      array.fetch(position)
-      binding.pry
-    end
+    array.shift(position)
+    array.pop(array.length - number)
+    array.join(" ")
+  end
+
+  def includes?(data)
+    array = self.to_string.split
+    array.include?(data)
   end
 end
