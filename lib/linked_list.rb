@@ -60,6 +60,12 @@ class LinkedList
     end
   end
 
+  def set_list(array)
+    array.each do |data|
+      append(data)
+    end
+  end
+
   def reset_list(array)
     self.head = nil
     array.each do |data|
