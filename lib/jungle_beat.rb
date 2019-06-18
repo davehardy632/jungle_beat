@@ -15,4 +15,9 @@ class JungleBeat
   def count
     self.list.count
   end
+
+  def play
+    beats = self.list.to_string
+    `say -r 250 -v Alex "#{beats}"`
+  end
 end
