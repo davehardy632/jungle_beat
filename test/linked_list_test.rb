@@ -100,4 +100,16 @@ class LinkedListTest < Minitest::Test
     assert_equal true, @list.includes?("deep")
     assert_equal false, @list.includes?("dep")
   end
+
+  def test_pop_method
+    @list.append("deep")
+    @list.append("woo")
+    @list.append("shi")
+    @list.append("shu")
+    @list.append("blop")
+    assert_equal "blop", @list.pop
+    assert_equal "shu", @list.pop
+    assert_equal "deep woo shi", @list.to_string
+  end
+
 end

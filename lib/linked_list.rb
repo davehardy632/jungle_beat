@@ -92,6 +92,13 @@ class LinkedList
     end
   end
 
+  def pop
+    array = self.to_string.split
+    return_value = array.pop
+    reset_list(array)
+    return_value
+  end
+
   def find(position, number)
     array = self.to_string.split
     array.shift(position)
