@@ -31,26 +31,21 @@ class LinkedList
     last_node(node.next_node)
   end
 
-  def collect_data(node, array = [])
+  def collect_data(node, string = "")
     if empty?
       return nil
     else
-      array << node.data
+      string << " " + node.data
       if node.tail?
-        array
+        string.lstrip!
       else
-        collect_data(node.next_node, array)
+        collect_data(node.next_node, string)
       end
     end
   end
 
   def to_string
-    string = ""
-    data = collect_data(self.head)
-    data.each do |word|
-     string << " " + word
-   end
-   string.lstrip!
+    collect_data(self.head)
   end
 
   def append(data)

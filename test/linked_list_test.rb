@@ -37,11 +37,27 @@ class LinkedListTest < Minitest::Test
     assert_equal "deep", @list.last_node(@list.head).data
   end
 
+  def test_counter_method
+    @list.append("doop")
+    @list.append("deep")
+    @list.append("wubba")
+    assert_equal 3, @list.counter(@list.head, 0)
+  end
+
+  def test_collect_data_method
+    @list.append("doop")
+    @list.append("deep")
+    @list.append("wubba")
+    assert_equal "doop deep wubba", @list.to_string
+  end
+
   def test_append_multiple_nodes
     @list.append("doop")
     @list.append("deep")
+    @list.append("wubba")
+    @list.append("wabba")
     assert_equal "deep", @list.head.next_node.data
-    assert_equal 2, @list.count
-    assert_equal "doop deep", @list.to_string
+    assert_equal 4, @list.count
+    assert_equal "doop deep wubba wabba", @list.to_string
   end
 end
