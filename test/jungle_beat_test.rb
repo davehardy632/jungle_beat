@@ -28,4 +28,10 @@ class JungleBeatTest < Minitest::Test
     assert_equal 6, @jb.count
   end
 
+  def test_append_works_for_longer_lists
+    assert_equal "deep doo ditt woo hoo shu", @jb.append("deep doo ditt woo hoo shu")
+    assert_equal 6, @jb.count
+    assert_equal "", @jb.play
+  end
+
 end
