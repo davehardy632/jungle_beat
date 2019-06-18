@@ -60,9 +60,9 @@ class LinkedList
     end
   end
 
-  def reset_list(string)
+  def reset_list(array)
     self.head = nil
-    string.split.each do |data|
+    array.each do |data|
       append(data)
     end
   end
@@ -74,9 +74,21 @@ class LinkedList
       @head.data
     else
       string = self.to_string
-      string.prepend(data + " ")
-      reset_list(string)
+      array = string.prepend(data + " ").split
+      reset_list(array)
       self.head.data
+    end
+  end
+
+  def insert(position, data)
+    if empty?
+      self.head = node
+      @head.data
+    else
+      array = self.to_string.split
+      array.insert(position, data)
+      reset_list(array)
+      data
     end
   end
 end

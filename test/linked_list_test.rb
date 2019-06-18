@@ -67,5 +67,15 @@ class LinkedListTest < Minitest::Test
     assert_equal "suu", @list.append("suu")
     assert_equal "dop", @list.prepend("dop")
     assert_equal "dop plop suu", @list.to_string
+    assert_equal 3, @list.count
+  end
+
+  def test_insert_method
+    @list.append("plop")
+    @list.append("suu")
+    @list.prepend("dop")
+    assert_equal "woo", @list.insert(1, "woo")
+    binding.pry
+    assert_equal "dop woo plop suu", @list.to_string
   end
 end
