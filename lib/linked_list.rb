@@ -1,24 +1,34 @@
 require 'pry'
 
 class LinkedList
-  attr_reader :head
+  attr_accessor :head, :count, :to_string
   def initialize
+    @count = 0
+    @to_string = ""
     @head = nil
   end
 
+  def empty?
+    head.nil?
+  end
+
+  def last_node(node)
+    return node if node.tail?
+    last_node(node.next_node)
+  end
+
   def append(data)
-    @head = Node.new(data)
-    @head.data
-  end
-
-  def count
-    sum = 1
-    if @head.data != nil && @head.next_node == nil
-      return 1
+    if empty?
+      if self.head = Node.new(data)
+         @count += 1
+      @to_string << @head.data
+       end
+    else
+      new_node = self.last_node(self.head)
+        if new_node.next_node = Node.new(data)
+        @count += 1
+      @to_string <<  " " + new_node.next_node.data
+      end
     end
-  end
-
-  def to_string
-    @head.data
   end
 end
