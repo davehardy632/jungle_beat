@@ -10,15 +10,12 @@ class LinkedList
     head.nil?
   end
 
-  def counter(node, counter)
+  def counter(node, counter = 0)
     if empty?
-      0
-    else
+      counter
+    elsif node.tail?
       counter += 1
-      if node.tail?
-        counter
-      else counter(node.next_node, counter)
-      end
+    else counter(node.next_node, counter + 1)
     end
   end
 
@@ -29,13 +26,10 @@ class LinkedList
   def collect_data(node, string = "")
     if empty?
       return ""
+    elsif node.tail?
+      (string << " " + node.data).lstrip!
     else
-      string << " " + node.data
-      if node.tail?
-        string.lstrip!
-      else
-        collect_data(node.next_node, string)
-      end
+      collect_data(node.next_node, (string << " " + node.data) )
     end
   end
 
@@ -48,14 +42,17 @@ class LinkedList
     last_node(node.next_node)
   end
 
+  def set_head(data)
+    self.head = Node.new(data)
+    @head.data
+  end
+
   def append(data)
-    node = Node.new(data)
     if empty?
-      self.head = node
-      @head.data
+      set_head(data)
     else
       new_node = self.last_node(self.head)
-      new_node.next_node = node
+      new_node.next_node = Node.new(data)
       new_node.next_node.data
     end
   end
@@ -71,29 +68,22 @@ class LinkedList
     array.each do |data|
       append(data)
     end
+    self.head.data
   end
 
   def prepend(data)
-    node = Node.new(data)
     if empty?
-      self.head = node
-      @head.data
+      set_head(data)
     else
-      string = self.to_string
-      array = string.prepend(data + " ").split
-      reset_list(array)
-      self.head.data
+      reset_list(self.to_string.prepend(data + " ").split)
     end
   end
 
   def insert(position, data)
     if empty?
-      self.head = node
-      @head.data
+      set_head(data)
     else
-      array = self.to_string.split
-      array.insert(position, data)
-      reset_list(array)
+      reset_list(self.to_string.split.insert(position, data))
       data
     end
   end
